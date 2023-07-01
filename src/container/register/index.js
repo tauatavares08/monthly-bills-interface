@@ -40,6 +40,7 @@ export function Register() {
 
             setTimeout(() => {
                 setAlertMessage('');
+                push('/')
             }, 2000);
 
             reset();

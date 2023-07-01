@@ -9,7 +9,8 @@ import MenuItem from '@mui/material/MenuItem';
 import api from '../../services/api'
 import { Alert } from '@mui/material';
 import { useHistory } from "react-router-dom";
-
+import IconButton from '@mui/material/IconButton';
+import HomeIcon from '@mui/icons-material/Home';
 export function EditUserId() {
     const { location: {
         state: { user }
@@ -41,8 +42,9 @@ export function EditUserId() {
             setAlertMessage('');
             push('users')
         }, 2000);
-
-
+    }
+    const homePage = () => {
+        push('/')
     }
     return (
         <C.Main>
@@ -53,7 +55,9 @@ export function EditUserId() {
                 }}
                     severity="success">{alertMessage}</Alert>}
                 <C.Img src={Logo} />
-
+                <IconButton onClick={() => { homePage() }} aria-label="Home">
+                    <HomeIcon />
+                </IconButton>
                 <C.H1>Registrar Compra</C.H1>
                 <form onSubmit={handleSubmit(EditUser)}>
                     <InputLabel style={{ width: 200, color: "#82a" }} id="demo-simple-select-label" >Nome</InputLabel>
