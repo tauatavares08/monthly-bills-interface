@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { format } from 'date-fns';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -16,7 +17,6 @@ import Button from '@mui/material/Button';
 import EditIcon from '@mui/icons-material/Edit';
 import { Alert, Stack, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import { Main } from './style';
-
 
 export default function BasicTable() {
   const [users, setUsers] = useState([]);
@@ -45,7 +45,6 @@ export default function BasicTable() {
   }
 
   function editUser(user) {
-
     push('/Edit', { user });
   }
 
@@ -80,7 +79,7 @@ export default function BasicTable() {
           <Dialog open={showAlert} onClose={closeDialog}>
             <DialogTitle>Confirmar exclusão</DialogTitle>
             <DialogContent>
-              <p>Tem certeza que deseja excluir a conta ?</p>
+              <p>Tem certeza que deseja excluir a conta?</p>
             </DialogContent>
             <DialogActions>
               <Button onClick={closeDialog}>Cancelar</Button>
@@ -90,23 +89,27 @@ export default function BasicTable() {
             </DialogActions>
           </Dialog>
         )}
-        {alertMessage && <Alert style={{ width: '80%' }} severity="success">{alertMessage}</Alert>}
+        {alertMessage && (
+          <Alert style={{ width: '80%' }} severity="success">
+            {alertMessage}
+          </Alert>
+        )}
       </Stack>
       <TableContainer style={{ width: '80%' }} component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table"
-        >
-          <TableHead style={{ background: '#ffd108'}} >
-
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead style={{ background: '#ffd108' }}>
             <TableRow>
-              <TableCell style={{fontWeight: 'bold', fontSize: 20 }} >Name</TableCell>
-              <TableCell style={{fontWeight: 'bold', fontSize: 20 }} align="right">Data</TableCell>
-              <TableCell style={{fontWeight: 'bold', fontSize: 20 }} align="right">Valor</TableCell>
-              <TableCell style={{fontWeight: 'bold', fontSize: 20 }} align="right">Cartão</TableCell>
-              <TableCell style={{fontWeight: 'bold', fontSize: 20 }} align="right">Localização</TableCell>
-              <TableCell style={{fontWeight: 'bold', fontSize: 20 }} align="right">
+              <TableCell style={{ fontWeight: 'bold', fontSize: 20 }}>Nome</TableCell>
+              <TableCell style={{ fontWeight: 'bold', fontSize: 20 }} align="right">Data</TableCell>
+              <TableCell style={{ fontWeight: 'bold', fontSize: 20 }} align="right">Valor</TableCell>
+              <TableCell style={{ fontWeight: 'bold', fontSize: 20 }} align="right">Cartão</TableCell>
+              <TableCell style={{ fontWeight: 'bold', fontSize: 20 }} align="right">Localização</TableCell>
+              <TableCell style={{ fontWeight: 'bold', fontSize: 20 }} align="right">
                 <Fab style={{ marginRight: 35 }} color="primary" aria-label="add">
-                  <Tooltip describeChild title="Adicionar" >
-                    <Button style={{ color: 'white' }} onClick={() => registerUser()}>Add</Button>
+                  <Tooltip title="Adicionar">
+                    <Button style={{ color: 'white' }} onClick={() => registerUser()}>
+                      Add
+                    </Button>
                   </Tooltip>
                 </Fab>
               </TableCell>
@@ -121,8 +124,8 @@ export default function BasicTable() {
                 <TableCell component="th" scope="row">
                   {user.name}
                 </TableCell>
-                <TableCell align="right">{user.name}</TableCell>
-                <TableCell align="right">{user.date}</TableCell>
+                <TableCell align="right">{format(new Date(user.date), 'dd/MM/yyyy')}</TableCell>
+                <TableCell align="right">{user.value}</TableCell>
                 <TableCell align="right">{user.card}</TableCell>
                 <TableCell align="right">{user.location}</TableCell>
                 <TableCell align="right">
